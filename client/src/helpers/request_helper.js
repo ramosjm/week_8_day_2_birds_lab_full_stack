@@ -14,8 +14,9 @@ RequestHelper.prototype.delete = function (id) {
     .then((response) => response.json());
 };
 
+//added post function.
 RequestHelper.prototype.post = function (payload){
-  return fetch(this.url,{
+  return fetch(this.url,{ // fetch takes two aruments - this.url and {settings}.
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {'Content-Type': 'application/json'}

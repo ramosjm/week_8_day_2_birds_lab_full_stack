@@ -17,7 +17,9 @@ SightingFormView.prototype.handleSubmit = function (evt) {
   evt.target.reset();
 };
 
+// createSighting will create a sighting with species, location and date using the form event provided by handleSubmit
 SightingFormView.prototype.createSighting = function (form){
+
   const newSighting = {
     species: form.species.value,
     location: form.location.value,
