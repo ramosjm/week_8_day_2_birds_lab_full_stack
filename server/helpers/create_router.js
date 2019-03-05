@@ -29,6 +29,23 @@ const createRouter = function (collection) {
       });
   });
 
+  router.post('/',(req,res)=>{
+    const newData = req.body;
+    collection
+      .insertOne(newData)
+      .then(()=> collection.find().toArray())
+      .then((docs)=>res.json(docs))
+  });
+
+  router.put('/:id',(req,res)=>{
+    const id = req.params.id;
+    const updatedData = req.body;
+    collection
+      .updateOne({_id: ObjectID(id)} , {$set: updatedData})
+      .then(()=> collection.find().toArray())
+      .then((docs)=>res.json(docs))
+  });
+
   router.delete('/:id', (req, res) => {
     const id = req.params.id;
     collection

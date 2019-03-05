@@ -10,6 +10,9 @@ Sightings.prototype.bindEvents = function () {
   PubSub.subscribe('SightingView:sighting-delete-clicked', (evt) => {
     this.deleteSighting(evt.detail);
   });
+  PubSub.subscribe('SightingView:sighting-submitted',(evt)=>{
+      this.postSighting(evt.detail);
+  });
 };
 
 Sightings.prototype.getData = function () {
@@ -24,6 +27,15 @@ Sightings.prototype.deleteSighting = function (sightingId) {
   this.request.delete(sightingId)
     .then((sightings) => {
       PubSub.publish('Sightings:data-loaded', sightings);
+    })
+    .catch(console.error);
+};
+
+Sightings.prototype.postSighting = function(sighting){
+  const request = new RequestHelper(this.url);
+  request.post(sighting)
+    .then((sightings)=>{
+      PubSub.publish('Sightings:data-loaded',sightings);
     })
     .catch(console.error);
 };
